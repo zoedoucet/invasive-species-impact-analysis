@@ -11,7 +11,7 @@ I independently selected the research topic, dataset, and research questions. Th
 
 ## Project Overview
 
-This project explores the Global Impacts Dataset of Invasive Alien Species (GIDIAS), in which the impacts of invasive alien species is documented. The goal of the project is to understand the dataset, identify data-quality issues, develop research questions, and prepare the data for a analysis in SQL.
+This project explores the Global Impacts Dataset of Invasive Alien Species (GIDIAS), which documents the impacts of invasive alien species. The goal of the project is to understand the dataset, identify data-quality issues, develop research questions, and prepare the data for analysis using SQL.
 
 ### Dataset
 
@@ -66,7 +66,7 @@ invasive-species-impact-analysis/
 └── README.md          # Project documentation
 ```
 
-The project follows an exploratory data analysis (EDA) (notebook 01) approach before cleaning the data and moving into database design (notebook 02) and SQL (sql folder) analysis. The SQL queries are stored separately to make them easier to review and reuse. In the final part the results are visualised and the hypothesis are confirmed or rejected (notebook 03). 
+The project follows an exploratory data analysis (EDA) approach before cleaning the data and moving on to database design and SQL analysis. In the final part, the results are visualised and the hypotheses are evaluated.
 
 ---
 ## Key Findings and Results
@@ -142,6 +142,23 @@ In the final part, the hypotheses were evaluated based on the results shown in t
 
 ## Limitations and Future Improvements
 
+The dataset was quite complex for the scope of this project. In particular, the geographical information could have been cleaned more thoroughly, and the available year data does not necessarily reflect when species were introduced.
+
+Future improvements could include a more accurate analysis of invasive species by country, a comparison of their impacts on islands, and maps to visualise their geographical distribution.
+
+---
+### Requirements
+The project uses:
+
+* **Python**
+* **Pandas** for data manipulation
+* **NumPy**
+* **openyxl**
+* **Matplotlib** and **Seaborn** for visualisation
+* **Jupyter Notebook** for exploratory analysis
+* **SQL** for querying the final relational database
+* **Git/GitHub** for version control
+
 ---
 ## How to Run
 
@@ -153,17 +170,14 @@ To reproduce the analysis, follow the steps below.
 
 #### 1. Clone the repository
 
+Clone the repository.
+
 ```bash
 git clone https://github.com/zoedoucet/invasive-species-impact-analysis.git
 cd invasive-species-impact-analysis
 ```
-#### 2. Install dependencies
 
-```bash
-python -m pip install -r requirements.txt
-```
-
-#### 3. Download the dataset
+#### 2. Download the dataset
 
 Download the GIDIAS dataset and its accompanying metadata from:
 
@@ -171,24 +185,28 @@ Download the GIDIAS dataset and its accompanying metadata from:
 
 Place the downloaded files in the appropriate directory under `data/raw`.
 
-#### 5. Run the notebooks
+The notebooks expect the following files:
 
-Execute the notebooks in the following order:
+- GIDIAS_20250417_machine_read.csv
 
-1. **Exploratory Data Analysis:** Explore the dataset and identify data quality issues.
-2. **Data Cleaning and Processing:** Clean the data, prepare relational tables, and create the SQLite database.
-3. **Analysis and Visualization:** Execute the SQL queries and generate visualizations.
+- GIDIAS_metadata_20250507.xlsx
 
-Run the cells in each notebook sequentially, as later steps may depend on files generated during earlier stages.
+#### 3. Install the requirements
 
----
-### Requirements
-The project uses:
+Install the necessary Python packages using:
 
-* **Python**
-* **Pandas** for data manipulation
-* **Matplotlib** and **Seaborn** for visualisation
-* **Seaborn** for statistical visualisations 
-* **Jupyter Notebook** for exploratory analysis
-* **SQL** for querying the final relational database
-* **Git/GitHub** for version control
+pip install -r requirements.txt
+
+#### 4. Run Notebook 1
+
+Run 01_eda.ipynb to explore the dataset and assess its structure and quality.
+
+#### 5. Run Notebook 2
+
+Run the second notebook to clean the data, create the relational tables, and build the SQLite database.
+
+The processed dataset is saved as data/clean/GIDIAS_cleaned.csv, including the generated identifiers and year_probability column.
+
+#### 6. Run Notebook 3
+
+Run the third notebook to execute the SQL queries stored in sql/queries.sql, visualise the results, and evaluate the hypotheses.
