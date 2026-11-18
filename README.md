@@ -41,9 +41,11 @@ A separate metadata file provides descriptions and information about the variabl
 
 The analysis focuses on the following three questions:
 
-1. **When were invasive species introduced most frequently?**
-2. **Which countries have the highest number of documented invasive species impacts?**
-3. **Which invasive species have the greatest documented impact?**
+1. When did invasive species introductions peak, and was there a period of rapid increase?
+
+2. Which regions and countries are most affected by invasive species?
+
+3. Which invasive species have the greatest impact?
 
 ---
 
@@ -118,7 +120,7 @@ The dataset was split into three tables:
 - A **location** table containing information about the location where the species had an impact, such as region and country.
     - The primary key was `location_id`.
 
-(![Invasive Species ERD](images/ERD_invasiv_species_1.png))
+![Invasive Species ERD](images/ERD_invasiv_species_1.png)
 
 The new tables were saved in `project_inv_sp.db`.
 
