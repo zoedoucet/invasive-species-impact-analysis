@@ -1,49 +1,24 @@
-# Project 1 - Invasive Alien Species and Their Impacts
+# Invasive Alien Species and Their Impact on the Environment and Human Activities
 ---
 
-## Overview
+## Project Context
+
+This project was completed as part of the Data Science and Machine Learning Bootcamp at Ironhack Germany GmbH.
+
+I independently selected the research topic, dataset, and research questions. The course provided a project template outlining potential analytical methods and techniques, which I adapted to my research questions and to the dataset.
+
+---
+
+## Project Overview
+
 This project explores the Global Impacts Dataset of Invasive Alien Species (GIDIAS), in which the impacts of invasive alien species is documented. The goal of the project is to understand the dataset, identify data-quality issues, develop research questions, and prepare the data for a analysis in SQL.
----
 
-## Project Structure
-The project follows an exploratory data analysis (EDA) approach before cleaning the data and moving into database design and SQL analysis. In the final part the results are visualised and the hypothesis are confirmed or rejected. 
----
+### Dataset
 
-## Requirements
-The project uses:
+This project uses the Global Impacts Dataset of Invasive Alien Species (GIDIAS). It has first been published on the 21. of May 2025 in Springer Nature and authored by S. Bacher et al.  (https://doi.org/10.6084/m9.figshare.27908838).
 
-* **Python**
-* **Pandas** for data manipulation
-* **Matplotlib** and **Seaborn** for visualisation
-* **Seaborn** for statistical visualisations 
-* **Jupyter Notebook** for exploratory analysis
-* **SQL** for querying the final relational database
-* **Git/GitHub** for version control
----
-## How to Run
+The dataset contains information about invasive alien species and their documented impact on the environment and on human activities.
 
-### 1. Clone the repository
-Fork and clone the project directory.
-
-### 2. Dowload the data
-Dowload the data as well as the metadata from https://doi.org/10.6084/m9.figshare.27908838 and place the files in the data/raw folder.
-
-### 3. Run the notebooks 1 and 2
-Run the notebook 01_eda.ipynb to get an insight on the eda.
-Than run the notbook 02_processing to clean the data, create the tables and as well als the DB database.
-
-### 4. Run the queries in sl
-Move to SQL to run the queries.
-
-### 5. Run the third notebook
-Run the third notbeook 03_hypothesis_and_visualisation.
-First the queries will be loaded from the SQL file and than the visualisatons will be created.
----
-
-## Dataset
-For this project the Global Impacts Dataset of Invasive Alien Species (GIDIAS) was used. It has first been published on the 21. of Mai 2025 in Springer Natur and authored by S. Bacher et al.  (https://doi.org/10.6084/m9.figshare.27908838).
-
-The dataset contains information about invasive alien species and their documented impacts.
 Each row represents a record of an invasive alien species at a specific location, including its impact on the environment and human activities, as well as the year in which the impact was recorded or published.
 
 The raw dataset contains:
@@ -59,84 +34,159 @@ The raw dataset contains:
 * References and source information
 
 A separate metadata file provides descriptions and information about the variables in the dataset.
----
 
-## Research Questions
+ Instructions for downloading the dataset and the metadata are provided in the How to Run section.
+
+### Research Questions
 
 The analysis focuses on the following three questions:
 
 1. **When were invasive species introduced most frequently?**
 2. **Which countries have the highest number of documented invasive species impacts?**
 3. **Which invasive species have the greatest documented impact?**
+
 ---
 
-## Data Exploration (notebook 01_eda.ipynb)
+## Project Structure
 
-The first stage of the project focuses on understanding the structure and quality of the data.
+The repository is organized into folders corresponding to the different stages of the analysis.
 
-The following aspects are investigated:
+```text
+invasive-species-impact-analysis/
+├── data/              # Data files and related documentation
+├── functions/         # Reusable Python functions
+├── images/            # Visualizations and supporting images
+├── notebooks/         # Jupyter notebooks for the analysis
+├── presentation/      # Project presentation
+├── sql/               # SQL queries and database-related files
+├── src/               # Supporting Python scripts
+├── requirements.txt   # Python dependencies
+└── README.md          # Project documentation
+```
 
-* Number of rows and columns
-* Data types
-* Missing values
-* Unique identifiers
-* Categorical and numerical variables
+The project follows an exploratory data analysis (EDA) (notebook 01) approach before cleaning the data and moving into database design (notebook 02) and SQL (sql folder) analysis. The SQL queries are stored separately to make them easier to review and reuse. In the final part the results are visualised and the hypothesis are confirmed or rejected (notebook 03). 
 
-One important finding is that some variables contain multiple values in a single cell. For example, `Country.Location` and `Island` can contain several countries or islands separated by semicolons.
+---
+## Key Findings and Results
 
-These fields therefore require special treatment before being used in a relational database.
+### Data Exploration (notebook 01_eda.ipynb)
 
-The dataset contains both `rowID` and `UniqueID`.
+The first stage of the project focused on understanding the structure and quality of the data.
 
-`UniqueID` is unique for each record and is used to identify an individual impact record.
+The following aspects were investigated:
 
-The species name is **not unique**, because one invasive species can occur in many different records.
+- Number of rows and columns
+- Data types
+- Missing values
+- Unique identifiers
+- Categorical and numerical variables
 
-For this reason, a separate `species_id` is created for each unique species when creating the tables.
+One important finding was that some variables contained multiple values in a single cell. For example, `Country.Location` and `Island` could contain several countries or islands separated by semicolons.
+
+These fields therefore required special treatment before being used in a relational database.
+
+The dataset contained both `rowID` and `UniqueID`.
+
+`UniqueID` was unique for each record and was used to identify an individual impact record.
+
+The species name was **not unique**, because one invasive species could occur in many different records.
+
+For this reason, a separate `species_id` was created for each unique species when creating the tables.
+
 ---
 
-## Data processing (notebook 02-processing.ipynb)
+### Data Processing (notebook 02-processing.ipynb)
 
-### Data cleaning
+#### Data Cleaning
 
-To achieve a clean data unnecessary columns are being discarded, than the names of the columns are standardised.
-Furthermore the data types of a few columns are changed for the analysis.
+To clean the data, unnecessary columns were discarded, and the column names were standardized. Furthermore, the data types of a few columns were changed for the analysis.
 
-The clean data is saved in the data/clean folder.
+The cleaned data was saved in the `data/clean` folder.
 
-### Building the tables
+#### Building the Tables
 
-The dataset will be split into three tables:
+The dataset was split into three tables:
 
-- an **impact** table with infomation regarding the impact a species has such as the magnitude of the impact, the realm it has an impact on and the language the impact was first described in
-    - the primary key will be `unique_id`, which identifies the impact each species has in a distinct country and region
-    - `species_id` will be one foreign key, wich will be created for each species
-    - `location_id` will be an other foreign key, wich will be created for each region and country combination
+- An **impact** table containing information about the impact of each species, such as the magnitude of the impact, the realm affected, and the language in which the impact was first described.
+    - The primary key was `unique_id`, which identified the impact of each species in a distinct country and region.
+    - `species_id` was a foreign key created for each species.
+    - `location_id` was another foreign key created for each region and country combination.
 
-- a **species** table with information regading the species such as family, class, kingdomm...
-    - the primary key will be `species_id`
+- A **species** table containing information about the species, such as family, class, and kingdom.
+    - The primary key was `species_id`.
 
-- the third table will be a table named **location**, which contains infomation on the location the species has an impact on, such as region and country
-    - the primary key will be `location_id`
+- A **location** table containing information about the location where the species had an impact, such as region and country.
+    - The primary key was `location_id`.
 
+(![Invasive Species ERD](images/ERD_invasiv_species_1.png))
 
-![Invasive Species ERD](../images/ERD_invasiv_species_1.png)
+The new tables were saved in `project_inv_sp.db`.
 
-The new tables were saved in project_inv_sp.db
+#### Data Analysis (queries.sql)
+
+The data analysis was performed using SQLite. One or two queries were written for each hypothesis.
+
 ---
 
-## Data analysis (queries.sql)
+### Data Visualization and Hypothesis Evaluation (notebook 03-hypothesis_and_visualization.ipynb)
 
-The data anlysis was done with SQLite. For each hypothesis one or two queries were written. 
+After loading the query results from the SQL file, visualizations were created for each research question.
+
+Different visualization techniques were used to make the results easier to interpret and to highlight relevant patterns and differences in the data. Bar charts and stacked bar charts were created using Matplotlib and Seaborn, while other visualization types were used where they were more appropriate for the data.
+
+The visualizations were then used to evaluate the hypotheses by comparing the observed patterns with the expectations defined in the research questions.
+
+In the final part, the hypotheses were evaluated based on the results shown in the visualizations.
+
+## Limitations and Future Improvements
+
 ---
+## How to Run
 
-## Data Visualisation and hypothesis confirmation (notebook 03-hypothesis_and_visualization.ipynb)
+### Installation and Reproducibility
 
-After loading the results of the queries from the sql file, visualisations were created for each question.
+This project was developed using Python, Jupyter Notebook, and SQLite.
 
-Different visualisation techniques were used to make the results easier to interpret and to highlight relevant patterns and differences in the data. Bar charts and stacked bar charts were created using Matplotlib and Seaborn, while other visualisation types were used where they were more appropriate for the data.
+To reproduce the analysis, follow the steps below.
 
-The visualisations were then used to evaluate the hypotheses by comparing the observed patterns with the expectations defined in the research questions. 
+#### 1. Clone the repository
 
-In the final part the hypothesis are rjected or confirmed acording to the results showed by the visualisation.
+```bash
+git clone https://github.com/zoedoucet/invasive-species-impact-analysis.git
+cd invasive-species-impact-analysis
+```
+#### 2. Install dependencies
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+#### 3. Download the dataset
+
+Download the GIDIAS dataset and its accompanying metadata from:
+
+[Global Impacts Dataset of Invasive Alien Species (GIDIAS)](https://doi.org/10.6084/m9.figshare.27908838)
+
+Place the downloaded files in the appropriate directory under `data/raw`.
+
+#### 5. Run the notebooks
+
+Execute the notebooks in the following order:
+
+1. **Exploratory Data Analysis:** Explore the dataset and identify data quality issues.
+2. **Data Cleaning and Processing:** Clean the data, prepare relational tables, and create the SQLite database.
+3. **Analysis and Visualization:** Execute the SQL queries and generate visualizations.
+
+Run the cells in each notebook sequentially, as later steps may depend on files generated during earlier stages.
+
 ---
+### Requirements
+The project uses:
+
+* **Python**
+* **Pandas** for data manipulation
+* **Matplotlib** and **Seaborn** for visualisation
+* **Seaborn** for statistical visualisations 
+* **Jupyter Notebook** for exploratory analysis
+* **SQL** for querying the final relational database
+* **Git/GitHub** for version control
