@@ -11,7 +11,7 @@ I independently selected the research topic, dataset, and research questions. Th
 
 ## Project Overview
 
-This project explores the Global Impacts Dataset of Invasive Alien Species (GIDIAS), which documents the impacts of invasive alien species. The goal of the project is to understand the dataset, identify data-quality issues, develop research questions, and prepare the data for analysis using SQL.
+This project explores the Global Impacts Dataset of Invasive Alien Species (GIDIAS), which documents the impacts of invasive alien species. The goal of this project is to explore and clean the dataset, prepare and structure the data in a relational database, and develop SQL queries to answer research questions. The results of these queries are then used to create visualisations and communicate the findings.
 
 ### Dataset
 
