@@ -1,16 +1,16 @@
-# Data is never committed. Anyone cloning the repo runs download_data.py.
+# Data 
 data/raw/*
 data/clean/*
 !data/raw/.gitkeep
 !data/clean/.gitkeep
 !data/README.md
 
-# Databases are build artefacts: they are rebuilt by notebook 02.
+# Databases 
 *.db
 *.sqlite
 *.sqlite3
 
-# Jupyter
+# Jupyter notebooks
 /notebooks/00_ideas_and_notes.ipynb
 .ipynb_checkpoints/
 */.ipynb_checkpoints/
@@ -19,7 +19,6 @@ data/clean/*
 __pycache__/
 *.py[cod]
 .Python
-env/
 venv/
 .venv/
 *.egg-info/
@@ -33,5 +32,6 @@ Thumbs.db
 # visualisation
 images/visualisation
 
-
+# presentation
+/presentation/
 
